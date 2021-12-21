@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class EnquiryConfig(AppConfig):
-    name = 'Enquiry'
+    name = 'enquiries'
