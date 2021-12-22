@@ -40,6 +40,13 @@ INSTALLED_APPS = [
 
      #integrated apps
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
     
     #own apps
     'enquiries',
@@ -132,3 +139,6 @@ AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = (
     ('django.contrib.auth.backends.ModelBackend'),
 )
+
+#the database ID of the Site object associated with that particular settings file.
+SITE_ID = 1
