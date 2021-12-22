@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
 
 
-class UserManager(BaseUserManager):
+class _UserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(self, email, password, **extra_fields):
@@ -47,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(_('created'), auto_now_add = True)
     updated_at = models.DateTimeField(_('updated'), auto_now=True)
 
-    objects = UserManager()
+    objects = _UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
