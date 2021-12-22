@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
 
 
@@ -35,17 +34,17 @@ class _UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = (
-        (u'M', u'Male'),
-        (u'F', u'Female'),
+        ("M","Male"),
+        ("F","female"),
     )
-    email = models.EmailField(_('email address'), unique=True)
-    full_name = models.CharField(_('full name'), max_length=30, blank=True)
-    gender = models.CharField(_('gender'), max_length=2, choices=GENDER_CHOICES)
-    is_superuser = models.BooleanField(_('superuser'))
-    active = models.BooleanField(_('active'), default=True)
+    email = models.EmailField(unique=True)
+    full_name = models.CharField(max_length=30, blank=True)
+    gender = models.CharField(max_length=2, choices=GENDER_CHOICES)
+    is_superuser = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
-    created_at = models.DateTimeField(_('created'), auto_now_add = True)
-    updated_at = models.DateTimeField(_('updated'), auto_now=True)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     objects = _UserManager()
 
