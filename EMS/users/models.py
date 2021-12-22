@@ -42,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField(max_length=2, choices=GENDER_CHOICES)
     is_superuser = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now=True)
 
