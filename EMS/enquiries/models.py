@@ -8,4 +8,4 @@ class Enquiry(models.Model):
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    resolved = models.BooleanField()
+    resolved = models.BooleanField(default=False)
