@@ -142,3 +142,20 @@ AUTHENTICATION_BACKENDS = (
 
 # the database ID of the Site object associated with that particular settings file.
 SITE_ID = 1
+
+#override the username default setting
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+#Auto primary key generator
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# parameters to use the email as the User identifier in our app
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+#tell dj-rest-auth to use the recently created serializer.
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
+}
