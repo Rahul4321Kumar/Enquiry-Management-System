@@ -159,3 +159,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
 }
+
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'users.serializers.LoginSerializer',
+}
