@@ -8,12 +8,10 @@ from django.urls import exceptions as url_exceptions
 
 from rest_framework import serializers, exceptions
 
+from users.models import GENDER_CHOICES
+
 
 class RegisterSerializer(serializers.Serializer):
-    GENDER_CHOICES = (
-        ("M", "Male"),
-        ("F", "female"),
-    )
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
     full_name = serializers.CharField(max_length=30)
     gender = serializers.ChoiceField(choices=GENDER_CHOICES)
@@ -49,7 +47,6 @@ class RegisterSerializer(serializers.Serializer):
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
-        print(self.cleaned_data)
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         user.full_name = self.cleaned_data.get("full_name")
