@@ -91,8 +91,6 @@ class LoginSerializer(serializers.Serializer):
         """
         if 'allauth' in settings.INSTALLED_APPS:
 
-            # When `is_active` of a user is set to False, allauth tries to return template html
-            # which does not exist. This is the solution for it. See issue #264.
             try:
                 return self.get_auth_user_using_allauth(email, password)
             except url_exceptions.NoReverseMatch:
@@ -110,4 +108,3 @@ class LoginSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
-        
