@@ -25,24 +25,24 @@ class RegisterSerializer(serializers.Serializer):
         if allauth_settings.UNIQUE_EMAIL:
             if email and email_address_exists(email):
                 raise serializers.ValidationError(
-                    "A user is already registered with this e-mail address.")
+                    "A user is already registered with this e-mail address."
+                )
         return email
 
     def validate_password1(self, password):
         return get_adapter().clean_password(password)
 
     def validate(self, data):
-        if data['password1'] != data['password2']:
-            raise serializers.ValidationError(
-                "The two password fields didn't match.")
+        if data["password1"] != data["password2"]:
+            raise serializers.ValidationError("The two password fields didn't match.")
         return data
 
     def get_cleaned_data(self):
         return {
-            'full_name': self.validated_data.get('full_name', ''),
-            'gender': self.validated_data.get('gender', ''),
-            'password1': self.validated_data.get('password1', ''),
-            'email': self.validated_data.get('email', ''),
+            "full_name": self.validated_data.get("full_name", ""),
+            "gender": self.validated_data.get("gender", ""),
+            "password1": self.validated_data.get("password1", ""),
+            "email": self.validated_data.get("email", ""),
         }
 
     def save(self, request):
@@ -52,18 +52,18 @@ class RegisterSerializer(serializers.Serializer):
         print(self.cleaned_data)
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
-        user.full_name = self.cleaned_data.get('full_name')
-        user.gender = self.cleaned_data.get('gender')
+        user.full_name = self.cleaned_data.get("full_name")
+        user.gender = self.cleaned_data.get("gender")
         user.save()
         return user
-        
+
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(required=False, allow_blank=True)
-    password = serializers.CharField(style={'input_type': 'password'})
+    password = serializers.CharField(style={"input_type": "password"})
 
     def authenticate(self, **kwargs):
-        return authenticate(self.context['request'], **kwargs)
+        return authenticate(self.context["request"], **kwargs)
 
     def _validate_email(self, email, password):
         if email and password:
@@ -78,7 +78,10 @@ class LoginSerializer(serializers.Serializer):
         from allauth.account import app_settings
 
         # Authentication through email
-        if app_settings.AUTHENTICATION_METHOD == app_settings.AuthenticationMethod.EMAIL:
+        if (
+            app_settings.AUTHENTICATION_METHOD
+            == app_settings.AuthenticationMethod.EMAIL
+        ):
             return self._validate_email(email, password)
 
     def get_auth_user(self, email, password):
@@ -89,22 +92,22 @@ class LoginSerializer(serializers.Serializer):
         Returns the authenticated user instance if credentials are correct,
         else `None` will be returned
         """
-        if 'allauth' in settings.INSTALLED_APPS:
+        if "allauth" in settings.INSTALLED_APPS:
 
             try:
                 return self.get_auth_user_using_allauth(email, password)
             except url_exceptions.NoReverseMatch:
-                msg = 'Unable to log in with provided credentials.'
+                msg = "Unable to log in with provided credentials."
                 raise exceptions.ValidationError(msg)
-        
+
     def validate(self, attrs):
-        email = attrs.get('email')
-        password = attrs.get('password')
+        email = attrs.get("email")
+        password = attrs.get("password")
         user = self.get_auth_user(email, password)
 
         if not user:
-            msg = 'Unable to log in with provided credentials.'
+            msg = "Unable to log in with provided credentials."
             raise exceptions.ValidationError(msg)
 
-        attrs['user'] = user
+        attrs["user"] = user
         return attrs
