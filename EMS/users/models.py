@@ -25,6 +25,7 @@ class _UserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_staff', True)
 
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
@@ -34,8 +35,8 @@ class _UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = (
-        ("M","Male"),
-        ("F","female"),
+        ("M", "Male"),
+        ("F", "female"),
     )
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=30, blank=True)
