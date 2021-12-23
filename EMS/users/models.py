@@ -32,12 +32,14 @@ class _UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-
-class User(AbstractBaseUser, PermissionsMixin):
-    GENDER_CHOICES = (
+GENDER_CHOICES = (
         ("M", "Male"),
         ("F", "female"),
     )
+
+    
+class User(AbstractBaseUser, PermissionsMixin):
+   
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=30, blank=True)
     gender = models.CharField(max_length=2, choices=GENDER_CHOICES)
