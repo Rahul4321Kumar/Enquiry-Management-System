@@ -8,7 +8,7 @@ from django.urls import exceptions as url_exceptions
 
 from rest_framework import serializers, exceptions
 
-from users.models import GENDER_CHOICES
+from users.models import GENDER_CHOICES, User
 
 
 class RegisterSerializer(serializers.Serializer):
@@ -31,6 +31,7 @@ class RegisterSerializer(serializers.Serializer):
         return get_adapter().clean_password(password)
 
     def validate(self, data):
+        import pdb;pdb.set_trace()
         if data["password1"] != data["password2"]:
             raise serializers.ValidationError("The two password fields didn't match.")
         return data
@@ -108,3 +109,16 @@ class LoginSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
+
+
+class CustomUserDetailsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = (
+            'pk',
+            'email',
+            'gender',
+            'full_name'
+        )
+        read_only_fields = ('pk', 'email',)
