@@ -3,6 +3,11 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 
+GENDER_CHOICES = (
+        ("M", "Male"),
+        ("F", "female"),
+    )
+    
 
 class _UserManager(BaseUserManager):
     use_in_migrations = True
@@ -32,12 +37,7 @@ class _UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-GENDER_CHOICES = (
-        ("M", "Male"),
-        ("F", "female"),
-    )
 
-    
 class User(AbstractBaseUser, PermissionsMixin):
    
     email = models.EmailField(unique=True)
