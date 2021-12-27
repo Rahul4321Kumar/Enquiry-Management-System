@@ -1,18 +1,16 @@
-from django.shortcuts import render
-
-from enquiries.serializers import EnquirySerializer
-from enquiries.models import Enquiry
-from rest_framework.generics import ListCreateAPIView,  RetrieveUpdateDestroyAPIView
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
+from enquiries.models import Enquiry
+from enquiries.serializers import EnquirySerializer
 
-class EnquiryList(ListCreateAPIView):
+
+class EnquiryViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
-    queryset = Enquiry.objects.all()
     serializer_class = EnquirySerializer
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-
-class EnquiryDetail(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Enquiry.objects.all()
-    serializer_class = EnquirySerializer
+    def get_queryset(self):
+        return Enquiry.objects.filter(user=self.request.user)
