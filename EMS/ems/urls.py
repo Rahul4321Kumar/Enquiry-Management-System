@@ -34,17 +34,18 @@ schema_view = get_schema_view(
    permission_classes=(permissions.AllowAny,),
 )
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    re_path(r'redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('api/enquiry/', include('enquiries.urls')),
+    path(r'redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path("api/", include("enquiries.api.urls")),
     path('auth/', include('dj_rest_auth.urls')),
     path(
         'auth/registration/account-confirm-email/<str:key>/',
         ConfirmEmailView.as_view(),
     ),
-    path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls'), name = "register"),
     path(
         'auth/account-confirm-email/',
         VerifyEmailView.as_view(),
