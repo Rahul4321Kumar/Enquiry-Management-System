@@ -1,0 +1,26 @@
+[
+    {
+        "model": "enquiries.Enquiry",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "message": "This is first enquiry"
+        }
+    },
+    {
+        "model": "enquiries.Enquiry",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "message": "This is second enquiry"
+        }
+    },
+    {
+        "model": "enquiries.Enquiry",
+        "pk": 3,
+        "fields": {
+            "user": 2,
+            "message": "This is third enquiry"
+        }
+    }
+]

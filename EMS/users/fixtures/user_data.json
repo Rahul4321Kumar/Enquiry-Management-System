@@ -1,0 +1,39 @@
+[
+    {
+        "model": "users.User",
+        "pk": 1,
+        "fields": {
+            "email": "test1@gmail.com",
+            "full_name": "test1",
+            "gender": "male",
+            "is_superuser": "False",
+            "active": "True",
+            "is_staff": "False"
+        }
+    },
+    {
+        "model": "users.User",
+        "pk": 2,
+        "fields": {
+            "email": "test2@gmail.com",
+            "full_name": "test2",
+            "gender": "male",
+            "is_superuser": "False",
+            "active": "True",
+            "is_staff": "False"
+        }
+    },
+    {
+        "model": "users.User",
+        "pk": 3,
+        "fields": {
+            "email": "test3@gmail.com",
+            "full_name": "test3",
+            "gender": "male",
+            "is_superuser": "False",
+            "active": "True",
+            "is_staff": "False"
+            
+        }
+    }
+]
