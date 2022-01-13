@@ -1,14 +1,13 @@
 from allauth.account import app_settings as allauth_settings
-from allauth.utils import email_address_exists
-from django.conf import settings
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
+from allauth.utils import email_address_exists
+from django.conf import settings
 from django.contrib.auth import authenticate
 from django.urls import exceptions as url_exceptions
+from rest_framework import exceptions, serializers
 
-from rest_framework import serializers, exceptions
-
-from users.models import GENDER_CHOICES
+from users.models import GENDER_CHOICES, User
 
 
 class RegisterSerializer(serializers.Serializer):
@@ -74,7 +73,6 @@ class LoginSerializer(serializers.Serializer):
     def get_auth_user_using_allauth(self, email, password):
         from allauth.account import app_settings
 
-        # Authentication through email
         if (
             app_settings.AUTHENTICATION_METHOD
             == app_settings.AuthenticationMethod.EMAIL
@@ -108,3 +106,16 @@ class LoginSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
+
+
+class CustomUserDetailsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = (
+            'pk',
+            'email',
+            'gender',
+            'full_name'
+        )
+        read_only_fields = ('pk', 'email',)
